@@ -52,7 +52,24 @@ public class MailClient
      */
     public void sendMailItem(String to,String subject, String message)
     {
-        MailItem item = new MailItem(user, to, subject, message);
+        MailItem item = new MailItem(false,user,to,subject,message);
+        server.post(item);
+    }
+    
+    public void sendMailItemEncriptado(String to,String subject, String message)
+    {
+
+        message = message.replace("a","$\\");
+        message = message.replace("A", "^");
+        message = message.replace("e", "*");
+        message = message.replace("E", "Ç");
+        message = message.replace("i", "º");
+        message = message.replace("I", "=");
+        message = message.replace("o", "·");
+        message = message.replace("O", "!");
+        message = message.replace("u", "ª");
+        message = message.replace("U", "+");
+        MailItem item = new MailItem(true,user,to,subject,message);
         server.post(item);
     }
 }

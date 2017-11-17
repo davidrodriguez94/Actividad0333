@@ -15,6 +15,8 @@ public class MailItem
     private String message;
     // The text of the subject.
     private String subject;
+
+    private boolean encriptado;
     /**
      * Create a mail item from sender to the given recipient,
      * containing the given message.
@@ -22,8 +24,9 @@ public class MailItem
      * @param to The intended recipient of this item.
      * @param message The text of the message to be sent.
      */
-    public MailItem(String from, String to, String message, String subject)
+    public MailItem(boolean encripta,String from, String to, String subject, String message)
     {
+        this.encriptado = encripta;
         this.from = from;
         this.to = to;
         this.subject = subject;
@@ -53,7 +56,7 @@ public class MailItem
     {
         return message;
     }
-    
+
     /**
      * @return The text of subject
      */
@@ -61,15 +64,35 @@ public class MailItem
     {
         return subject;
     }
-    
+
     /**
      * Print this mail message to the text terminal.
      */
     public void print()
     {
-        System.out.println("From: " + from);
-        System.out.println("To: " + to);
-        System.out.println("Subject: " + subject);
-        System.out.println("Message: " + message);
+        if(encriptado = false){
+            System.out.println("From: " + from);
+            System.out.println("To: " + to);
+            System.out.println("Subject: " + subject);
+            System.out.println("Message: " + message);
+        }
+        else{
+            if(encriptado = true){
+                System.out.println("From: " + from);
+                System.out.println("To: " + to);
+                System.out.println("Subject: " + subject);
+                message = message.replace("$\\","a");
+                message = message.replace("^", "A");
+                message = message.replace("*", "e");
+                message = message.replace("Ç", "E");
+                message = message.replace("º", "i");
+                message = message.replace("=", "I");
+                message = message.replace("·", "o");
+                message = message.replace("!", "O");
+                message = message.replace("ª", "u");
+                message = message.replace("+", "U");
+                System.out.println("Message: " + message);
+            }
+        }
     }
 }
